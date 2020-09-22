@@ -57,6 +57,7 @@ export default function Forms() {
       setDisabled(!valid)
     })
   }, [formValues])
+  
   return (
     <div>
       <Router>
@@ -82,7 +83,7 @@ export default function Forms() {
 
             {
               currentUser.map(user => {
-                return <DisplayUser user={user} key={user} />
+                return <DisplayUser user={user} key={user} userImage={userImage}/>
               })
             }
 
