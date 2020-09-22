@@ -18,15 +18,9 @@ export default function Signup(props) {
 
     axios.post('https://life-hacker-backend.herokuapp.com/register', formValues)
     .then(res=> {
-      axios.get(`https://life-hacker-backend.herokuapp.com/user/${res.data.data.id}`)
-      .then(resolved => {
-        console.log(resolved.data.user)
         setCurrentUser(initialUser)
-        setCurrentUser([resolved.data.user])
-      }) 
-      .catch(error => {
-        console.log(error)
-      })
+        setCurrentUser([res.data.data])
+      console.log(res.data.data)
     })
     .catch(err => {
       console.log(err)

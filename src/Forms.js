@@ -55,7 +55,6 @@ export default function Forms() {
       setDisabled(!valid)
     })
   }, [formValues])
-  console.log(currentUser)
   return (
     <div>
       <Router>
@@ -82,9 +81,9 @@ export default function Forms() {
             {
               console.log("CURRENTUSER", currentUser)
             }
-
             {
               currentUser.map(user => {
+                console.log(user)
                 return <DisplayUser user={user} key={user} />
               })
             }
