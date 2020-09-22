@@ -2,11 +2,19 @@ import React from "react";
 import "./Forms.css";
 import { BrowserRouter as Route, Link } from "react-router-dom";
 import axios from "axios";
-console.log(Route)
+console.log(Route);
 
 export default function Signup(props) {
-
-  const { formValues, updateForm, disabled, setCurrentUser, setFormValues, initialFormValues, initialUser } = props;
+  const {
+    formValues,
+    updateForm,
+    disabled,
+    setCurrentUser,
+    setFormValues,
+    initialFormValues,
+    initialUser,
+    setUserImage,
+  } = props;
 
   function onChange(evt) {
     const { name, value } = evt.target;
@@ -16,18 +24,26 @@ export default function Signup(props) {
   function onSubmit(event) {
     event.preventDefault();
 
-    axios.post('https://life-hacker-backend.herokuapp.com/register', formValues)
-    .then(res=> {
-        setCurrentUser(initialUser)
-        setCurrentUser([res.data.data])
-      console.log(res.data.data)
-    })
-    .catch(err => {
-      console.log(err)
-    })
-    .finally(() => {
-      setFormValues(initialFormValues)
-    })
+    axios
+      .post("https://life-hacker-backend.herokuapp.com/register", formValues)
+      .then((res) => {
+        setCurrentUser(initialUser);
+        setCurrentUser([res.data.data]);
+      })
+      .catch((err) => {
+        console.log(err);
+      })
+      .finally(() => {
+        setFormValues(initialFormValues);
+        const randomNum = Math.round(Math.random() * 100)
+        axios.get(`https://rickandmortyapi.com/api/character/${randomNum}`)
+        .then(res => {
+          setUserImage(res.data.image)
+        })
+        .catch(err => {
+          console.log(err)
+        })
+      });
   }
 
   return (
@@ -74,7 +90,9 @@ export default function Signup(props) {
           <br />
         </label>
 
-        <button type="submit" className="submitButton" disabled={disabled}>Submit</button>
+        <button type="submit" className="submitButton" disabled={disabled}>
+          Submit
+        </button>
       </form>
     </div>
   );

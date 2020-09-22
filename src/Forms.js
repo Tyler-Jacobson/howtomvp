@@ -23,13 +23,15 @@ const initialFormErrors = {
 
 const initialUser = []
 const initiallyDisabled = true
+const initialUserImage = ""
 
 export default function Forms() {
 
   const [ formValues, setFormValues ] = useState(initialFormValues);
   const [ formErrors, setFormErrors ] = useState(initialFormErrors);
-  const [ currentUser, setCurrentUser ] = useState(initialUser)
-  const [ disabled, setDisabled ] = useState(initiallyDisabled)
+  const [ currentUser, setCurrentUser ] = useState(initialUser);
+  const [ disabled, setDisabled ] = useState(initiallyDisabled);
+  const [ userImage, setUserImage ] = useState(initialUserImage);
 
 
   function validation(name, value) {
@@ -79,15 +81,10 @@ export default function Forms() {
             <p className="error">{formErrors.password}</p>
 
             {
-              console.log("CURRENTUSER", currentUser)
-            }
-            {
               currentUser.map(user => {
-                console.log(user)
                 return <DisplayUser user={user} key={user} />
               })
             }
-
 
           </Route>
           <Route path="/signup">
@@ -99,10 +96,17 @@ export default function Forms() {
               setFormValues={setFormValues}
               initialFormValues={initialFormValues}
               initialUser={initialUser}
+              setUserImage={setUserImage}
             />
             <p className="error">{formErrors.email}</p>
             <p className="error">{formErrors.username}</p>
             <p className="error">{formErrors.password}</p>
+
+            {
+              currentUser.map(user => {
+                return <DisplayUser user={user} key={user} userImage={userImage}/>
+              })
+            }
           </Route>
         </Switch>
       </Router>
